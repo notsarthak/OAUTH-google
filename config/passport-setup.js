@@ -1,9 +1,22 @@
 const passport=require('passport');
 const GoogleStrategy=require('passport-google-oauth20');
+const keys=require('./keys')
+//const dotenv=require('dotenv');
+
+/*dotenv.config({
+    path:'./.env'
+});*/
+
+/*passport.use(new GoogleStrategy({
+    clientID:process.env.CLIENT_ID,
+    clientSecret:process.env.CLIENT_SECRET
+}),()=>{
+
+})*/
 
 passport.use(new GoogleStrategy({
-    clientID:'274057902758-2ubp2bk3u8dgfqm2fjja0hbtkqa3c0nh.apps.googleusercontent.com',
-    clientSecret:'QIR0mdnEP1maHx54kqMLnqvn'
+    clientID:keys.google.clientID,
+    clientSecret:keys.google.clientSecret
 }),()=>{
 
 })
