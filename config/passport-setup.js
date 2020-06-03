@@ -15,8 +15,10 @@ const keys=require('./keys')
 })*/
 
 passport.use(new GoogleStrategy({
+    //options for strategy
+    callbackURL:'/auth/google/redirect',
     clientID:keys.google.clientID,
     clientSecret:keys.google.clientSecret
-}),()=>{
-
-})
+},()=>{
+    
+}))
