@@ -15,6 +15,16 @@ const User=require('../models/user-model');
 
 })*/
 
+passport.serializeUser((user,done)=>{
+    done(null, user.id);
+})
+
+passport.deserializeUser((id,done)=>{
+    User.findById(id).then((user)=>{
+        done(null,user)
+    })
+})
+
 passport.use(new GoogleStrategy({
     //options for strategy
     callbackURL:'/auth/google/redirect',
@@ -26,6 +36,7 @@ passport.use(new GoogleStrategy({
         {
             //if a user with same google id is found in the database
             console.log('user is: '+currentUser);
+            done(null, currentUser)
         }
         else
         {
@@ -36,6 +47,7 @@ passport.use(new GoogleStrategy({
             })
             user.save().then((newUser)=>{
                 console.log('new user saved: '+newUser);
+                done(null, user);
             })
         }
     })
