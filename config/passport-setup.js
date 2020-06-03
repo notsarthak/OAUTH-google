@@ -21,13 +21,23 @@ passport.use(new GoogleStrategy({
     clientID:keys.google.clientID,
     clientSecret:keys.google.clientSecret
 },(accessToken,refreshToken,profile,done)=>{
-    console.log('passport callback function fired')
-    console.log(profile); 
-    const user=new User({
-        googleId:profile.id,
-        username:profile.displayName
+    User.findOne({googleId:profile.id}).then((currentUser)=>{
+        if(currentUser)
+        {
+            //if a user with same google id is found in the database
+            console.log('user is: '+currentUser);
+        }
+        else
+        {
+            //if user is not found in database with the googleid
+            const user=new User({
+                googleId:profile.id,
+                username:profile.displayName
+            })
+            user.save().then((newUser)=>{
+                console.log('new user saved: '+newUser);
+            })
+        }
     })
-    user.save().then((newUser)=>{
-        console.log('new user saved: '+newUser);
-    })
+   
 }))
