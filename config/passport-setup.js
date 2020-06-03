@@ -21,5 +21,5 @@ passport.use(new GoogleStrategy({
     clientSecret:keys.google.clientSecret
 },(accessToken,refreshToken,profile,done)=>{
     console.log('passport callback function fired')
-    console.log(profile);
+    console.log(profile); 
 }))
