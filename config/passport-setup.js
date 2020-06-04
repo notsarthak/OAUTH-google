@@ -31,7 +31,7 @@ passport.use(new GoogleStrategy({
     clientID:keys.google.clientID,
     clientSecret:keys.google.clientSecret
 },(accessToken,refreshToken,profile,done)=>{
-    User.findOne({googleId:profile.id}).then((currentUser)=>{
+        User.findOne({googleId:profile.id}).then((currentUser)=>{
         if(currentUser)
         {
             //if a user with same google id is found in the database
@@ -43,7 +43,8 @@ passport.use(new GoogleStrategy({
             //if user is not found in database with the googleid
             const user=new User({
                 googleId:profile.id,
-                username:profile.displayName
+                username:profile.displayName,
+                thumbnail:profile._json.picture
             })
             user.save().then((newUser)=>{
                 console.log('new user saved: '+newUser);
